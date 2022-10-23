@@ -17,12 +17,12 @@ class RegistrationForm(forms.Form):
     TYPE_CHOICES = [('S', '学生'), ('T', '教师')]
     GENDER_CHOICES = [('M', '男'), ('F', '女')]
 
-    user_id = forms.CharField(label='学/工号', max_length=7, widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    user_id = forms.CharField(label='学/工号', max_length=10, widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
     email = forms.EmailField(label='邮箱', widget=forms.EmailInput(attrs={'class': 'form-control form-control-user mb-5'}))
     user_name = forms.CharField(label='昵称', max_length=10, widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
     gender = forms.ChoiceField(label='性别', widget=forms.RadioSelect, choices=GENDER_CHOICES)
     user_type = forms.ChoiceField(label='用户类型', widget=forms.RadioSelect, choices=TYPE_CHOICES)
-    class_name = forms.CharField(label='班级', max_length=20, required=False, widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    class_name = forms.CharField(label='班级', max_length=10, required=False, widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
     password1 = forms.CharField(label='密码', widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
     password2 = forms.CharField(label='再次输入密码', widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
 
@@ -53,9 +53,9 @@ def register(request):
             password1 = form.cleaned_data['password1']
             password2 = form.cleaned_data['password2']
 
-            if user_type == 'S' and len(user_id) != 7:
+            if user_type == 'S' and len(user_id) != 10:
                 message = "请输入有效的学号。"
-            elif user_type == 'T' and len(user_id) != 5:
+            elif user_type == 'T' and len(user_id) != 6:
                 message = "请输入有效的工号。"
             else:
                 filter_result = User.objects.filter(username__exact=user_id)
@@ -108,7 +108,7 @@ def login(request):
 
 
 def index(request):
-    return render(request, "../templates/welcome.html")
+    return render(request, "../templates/index.html")
 
 
 @login_required
