@@ -12,5 +12,6 @@ from ..models import *
 import datetime
 import copy
 
+
 def index(request):
     return render(request, "../templates/index.html")
