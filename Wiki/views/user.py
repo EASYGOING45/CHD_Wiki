@@ -17,26 +17,37 @@ class RegistrationForm(forms.Form):
     TYPE_CHOICES = [('S', '学生'), ('T', '教师')]
     GENDER_CHOICES = [('M', '男'), ('F', '女')]
 
-    user_id = forms.CharField(label='学/工号', max_length=10, widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
-    email = forms.EmailField(label='邮箱', widget=forms.EmailInput(attrs={'class': 'form-control form-control-user mb-5'}))
-    user_name = forms.CharField(label='昵称', max_length=10, widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    user_id = forms.CharField(label='学/工号', max_length=10,
+                              widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    email = forms.EmailField(label='邮箱',
+                             widget=forms.EmailInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    user_name = forms.CharField(label='昵称', max_length=10,
+                                widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
     gender = forms.ChoiceField(label='性别', widget=forms.RadioSelect, choices=GENDER_CHOICES)
     user_type = forms.ChoiceField(label='用户类型', widget=forms.RadioSelect, choices=TYPE_CHOICES)
-    class_name = forms.CharField(label='班级', max_length=10, required=False, widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
-    password1 = forms.CharField(label='密码', widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
-    password2 = forms.CharField(label='再次输入密码', widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    class_name = forms.CharField(label='班级', max_length=10, required=False,
+                                 widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    password1 = forms.CharField(label='密码',
+                                widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    password2 = forms.CharField(label='再次输入密码',
+                                widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label='邮箱', widget=forms.EmailInput(attrs={'class': 'form-control form-control-user mb-5'}))
-    password = forms.CharField(label='密码', widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    email = forms.EmailField(label='邮箱',
+                             widget=forms.EmailInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    password = forms.CharField(label='密码',
+                               widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
 
 
 class PwdChangeForm(forms.Form):
-    old_password = forms.CharField(label='旧的密码', widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    old_password = forms.CharField(label='旧的密码',
+                                   widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
 
-    password1 = forms.CharField(label='密码', widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
-    password2 = forms.CharField(label='再次输入密码', widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    password1 = forms.CharField(label='密码',
+                                widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
+    password2 = forms.CharField(label='再次输入密码',
+                                widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user mb-5'}))
 
 
 def register(request):
@@ -109,6 +120,22 @@ def login(request):
 
 def index(request):
     return render(request, "../templates/index.html")
+
+
+def zy(request):
+    return render(request, "../templates/services.html")
+
+
+def contacts(request):
+    return render(request, "../templates/contacts.html")
+
+
+def gy(request):
+    return render(request, "../templates/pricing.html")
+
+
+def kc(request):
+    return render(request, "../templates/projects.html")
 
 
 @login_required
@@ -197,7 +224,8 @@ def home(request):
                                   modified_time__gte
                                   =timezone.now() - datetime.timedelta(days=HOMEPAGE_HOT_BLOG_DAY)) |
                                 Q(modified_time__gte
-                                  =timezone.now() - datetime.timedelta(days=HOMEPAGE_COMMON_BLOG_DAY))).distinct().order_by('-pageview')
+                                  =timezone.now() - datetime.timedelta(
+                                    days=HOMEPAGE_COMMON_BLOG_DAY))).distinct().order_by('-pageview')
     if len(blogs) > HOMEPAGE_BLOG_NUMBER:
         blogs = blogs[:HOMEPAGE_BLOG_NUMBER]
 
@@ -219,7 +247,7 @@ def friends_admin(request):
         delete_id = request.POST.get('delete_id')
         agree_id = request.POST.get('agree_id')
         apply_id = request.POST.get('apply_id')
-        if not(delete_id is None):
+        if not (delete_id is None):
             try:
                 Friend.objects.filter(user_id__exact=delete_id, friend_id__exact=user.id)[0].delete()
             except IndexError:
@@ -229,7 +257,7 @@ def friends_admin(request):
             except IndexError:
                 pass
 
-        if not(agree_id is None):
+        if not (agree_id is None):
             friend = Friend.objects.filter(user_id__exact=agree_id, friend_id__exact=user.id)[0]
             friend.authority = 1
             friend.save()
@@ -237,7 +265,7 @@ def friends_admin(request):
                 new_friend = Friend(user=user, friend=friend.user, authority=0)
                 new_friend.save()
 
-        if not(apply_id is None):
+        if not (apply_id is None):
             friend = Friend.objects.filter(user_id__exact=user.id, friend__username__exact=apply_id)
             if len(friend) == 0:
                 try:

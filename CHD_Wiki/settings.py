@@ -76,13 +76,14 @@ WSGI_APPLICATION = "CHD_Wiki.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'chdwiki',
+        'NAME': 'chdwiki2',
         'USER': 'root',
         'PASSWORD': 'huan0912',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
