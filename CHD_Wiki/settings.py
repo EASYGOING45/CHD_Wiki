@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'simpleui',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -76,7 +77,7 @@ WSGI_APPLICATION = "CHD_Wiki.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'chdwiki2',
+        'NAME': 'wiki_db',
         'USER': 'root',
         'PASSWORD': 'huan0912',
         'HOST': '127.0.0.1',
@@ -107,6 +108,8 @@ TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
 
 USE_TZ = True
+
+SIMPLEUI_HOME_INFO = False  # 是否打开SimpleUi服务器信息
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

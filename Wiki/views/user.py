@@ -17,7 +17,7 @@ class RegistrationForm(forms.Form):
     TYPE_CHOICES = [('S', '学生'), ('T', '教师')]
     GENDER_CHOICES = [('M', '男'), ('F', '女')]
 
-    user_id = forms.CharField(label='学/工号', max_length=10,
+    user_id = forms.CharField(label='学/工号', max_length=7,
                               widget=forms.TextInput(attrs={'class': 'form-control form-control-user mb-5'}))
     email = forms.EmailField(label='邮箱',
                              widget=forms.EmailInput(attrs={'class': 'form-control form-control-user mb-5'}))
@@ -64,7 +64,7 @@ def register(request):
             password1 = form.cleaned_data['password1']
             password2 = form.cleaned_data['password2']
 
-            if user_type == 'S' and len(user_id) != 10:
+            if user_type == 'S' and len(user_id) != 7:
                 message = "请输入有效的学号。"
             elif user_type == 'T' and len(user_id) != 6:
                 message = "请输入有效的工号。"

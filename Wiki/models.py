@@ -15,7 +15,7 @@ class Profile(models.Model):
         ('T', 'Teacher'),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=10)
+    name = models.CharField(max_length=7)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
     class_name = models.CharField(max_length=20, blank=True, null=True)
